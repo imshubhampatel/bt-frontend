@@ -7,6 +7,7 @@ export default function ManageRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/otp-varification" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   );

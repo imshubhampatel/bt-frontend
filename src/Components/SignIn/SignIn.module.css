@@ -1,110 +1,111 @@
-.container {
-  width: 100%;
-  height: 100vh;
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  position: absolute;
-  z-index: 1002;
-  left: 0px;
-
-  overflow: hidden !important;
-}
-
-.left {
-  width: 50%;
-  height: 100vh;
-
+.header {
+  min-width: 100vw;
+  min-height: 100vh;
+  border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
+    url("https://btirt.ac.in/wp-content/uploads/2020/06/btirt-building.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-.right {
-  width: 50%;
-  height: 100vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f0f0f7;
-}
-
-.form_wrapper {
-  height: 507.02px;
-  width: 60%;
-  left: 807.953125px;
-  top: 111.4892578125px;
-  border-radius: 0px;
-
-  padding: 20px;
-
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background-color: white;
-}
-
-.form {
+.signIn_styles {
+  background-color: #fbfbfb;
+  width: 400px;
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: rgba(21, 23, 26, 0.3) 0px 1px 2px 0px,
+    rgba(2, 7, 12, 0.15) 0px 2px 6px 2px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-
-  width: 80%;
-  height: auto;
-  margin: auto;
+  align-items: center;
 }
 
-.greeting {
-  font-family: Poppins;
-  font-size: 26px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 39px;
-  letter-spacing: 0px;
-  text-align: left;
+.form h1 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.container {
+  max-width: 1200px;
+  min-height: 100%;
+  margin: 0 auto;
+}
+.logo img {
+  width: 150px;
+  margin: 30px 0px 20px 0px;
+  display: inline-block;
 }
 
-.general_msg {
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 0px;
-  text-align: left;
-  color: #767676;
+input {
+  display: block;
+  width: 300px;
+  margin: 20px 10px;
+  outline: none;
+  border: 0px;
+  padding: 10px 0px 10px 50px;
+  font-size: 1.6rem;
+  border: 1px solid #ddd;
+  border-radius: 8px 8px 8px 8px;
 }
 
-.label {
-  margin-bottom: 10px;
+input[type="submit"] {
+  border: 1px solid #ddd;
+  background-color: #e52b50;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 0 auto;
+  width: 100px;
 }
-
-.login_btn {
-  background: #3b86ff;
-  border-radius: 5px;
-  padding: 15px;
-  color: white;
-  border: none;
-
+input[type="submit"]:hover {
   cursor: pointer;
+  border: 1px solid #e52b50;
+}
+.formBox {
+  position: relative;
+}
 
-  font-family: Poppins;
+i {
   font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 34px;
-  letter-spacing: -0.33000001311302185px;
+  color: #aaa;
+}
+.formBox div {
+  border-width: 1px;
+  border-color: transparent #ddd transparent transparent;
+  border-style: solid;
+  width: 41px;
+  height: 38px;
+  position: absolute;
+  margin-top: 1px;
+  border-radius: 8px 0px 0px 8px;
+  left: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.login_btn:hover {
-  cursor: pointer;
-  transform: translateY(-1.5px);
-}
-.login_btn:active {
-  cursor: pointer;
-  transform: translateY(0.5px);
+input[type="checkbox"] {
+  width: 30px;
 }
 
-.greeting_wrapper {
-  margin: 20px 0px;
+section {
+  display: flex;
+  align-items: center;
+}
+
+.remember {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+span.showpassword {
+  position: absolute;
+  right: 20px;
+  padding-top: 10px;
 }

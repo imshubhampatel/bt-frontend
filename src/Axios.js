@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/v1";
+// const API = "http://localhost:5001/api/v1";
+const API = "http://ec2-15-206-179-144.ap-south-1.compute.amazonaws.com/api/v1";
 // API setup
 const instances = axios.create({
   baseURL: API,

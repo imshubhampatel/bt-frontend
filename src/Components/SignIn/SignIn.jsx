@@ -49,7 +49,7 @@ const SignIn = () => {
   };
   return (
     <>
-      {loadingg ? (
+      {loading ? (
         <Loader />
       ) : (
         <div className={`${styles.header} ${loading && styles.header_blur}  `}>

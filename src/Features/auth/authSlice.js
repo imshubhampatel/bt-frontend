@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../Axios";
 import { Authenticate } from "../../Helpers/auth.helper";
+import { showMessage } from "../alert/alertSlice";
 
-const setUserDetails = createAsyncThunk(
+export const setUserDetails = createAsyncThunk(
   "users/setUserDetails",
   async (values, thunkAPI) => {
     alert(JSON.stringify(values));
@@ -13,13 +14,22 @@ const setUserDetails = createAsyncThunk(
         data: values,
       };
       let { data } = await axios(config);
+      console.log(data);
+
       Authenticate(data, function () {
         console.log("created");
+        thunkAPI.dispatch(showMessage(data.data.message));
+        setTimeout(() => {
+          thunkAPI.dispatch(clearErrorAndSuccess());
+        }, 2000);
       });
       return data;
     } catch (error) {
-      console.log(error.response.data);
-      return error.response.data;
+      console.log(error.response.data.data);
+      setTimeout(() => {
+        thunkAPI.dispatch(clearErrorAndSuccess());
+      }, 2000);
+      return thunkAPI.rejectWithValue(error.response.data.data);
     }
   }
 );
@@ -40,7 +50,7 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       console.log(action.payload);
     },
-    _clear: (state, payload) => {
+    clearErrorAndSuccess: (state, payload) => {
       state.success = false;
       state.error = false;
     },
@@ -56,15 +66,15 @@ const authSlice = createSlice({
       state.token = payload.data.token;
       state.success = true;
     },
-    [setUserDetails.rejected]: (state, payload) => {
+    [setUserDetails.rejected]: (state, { payload }) => {
       state.loading = false;
       state.isAuthenticated = false;
       state.isLoggedIn = false;
       state.success = false;
-      state.error = payload;
+      state.error = true;
     },
   },
 });
 
-export { setUserDetails };
+export const { clearErrorAndSuccess } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styles from "./SignIn.module.css";
 import logo from "../../assets/images/BT LOGO.jpg";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserDetails } from "../../Features/auth/authSlice";
+import {
+  clearErrorAndSuccess,
+  setUserDetails,
+} from "../../Features/auth/authSlice";
 import Loader from "../Loader/Loader";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 //? material ui
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const state = useSelector((state) => state.auth);
   console.log(state);
@@ -30,7 +35,11 @@ const SignIn = () => {
   }, [Values]);
 
   const redirectHandler = () => {
-    if (success) return <Navigate to="/otp-varification" />;
+    if (success) {
+      setTimeout(() => {
+        navigate("/otp-verification");
+      }, 1000);
+    }
   };
 
   const submitHandler = async (e) => {
@@ -40,10 +49,10 @@ const SignIn = () => {
   };
   return (
     <>
-      {loading ? (
+      {loadingg ? (
         <Loader />
       ) : (
-        <div className={`${styles.header}  `}>
+        <div className={`${styles.header} ${loading && styles.header_blur}  `}>
           {redirectHandler()}
           <div className={`${styles.container}  `}>
             <div className={`${styles.signIn_styles} ${styles}`}>

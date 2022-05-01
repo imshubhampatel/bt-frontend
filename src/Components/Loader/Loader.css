@@ -1,4 +1,4 @@
-Preloader Styles Start*/ .preloader {
+.preloader {
   position: fixed;
   left: 0;
   top: 0;
@@ -7,6 +7,9 @@ Preloader Styles Start*/ .preloader {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
     url("https://btirt.ac.in/wp-content/uploads/2020/06/btirt-building.jpg");
   z-index: 999999;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .preloader .inner {
   width: 99px;
@@ -36,7 +39,7 @@ Preloader Styles Start*/ .preloader {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-  border-top: 6px solid #740eaf;
+  border-top: 6px solid #9e1b32;
   border-left: 6px solid rgba(116, 14, 175, 0);
   border-right: 6px solid rgba(116, 14, 175, 0);
   border-bottom: 6px solid rgba(116, 14, 175, 0);
@@ -54,7 +57,7 @@ Preloader Styles Start*/ .preloader {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-  border-top: 6px solid #9726d8;
+  border-top: 6px solid #e52b50;
   border-left: 6px solid rgba(151, 38, 216, 0);
   border-right: 6px solid rgba(151, 38, 216, 0);
   border-bottom: 6px solid rgba(151, 38, 216, 0);
@@ -71,9 +74,8 @@ Preloader Styles Start*/ .preloader {
   margin: auto;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
-  transform: ========================================================= * /
-    rotate(45deg);
-  border-top: 6px solid #be70eb;
+  transform: rotate(45deg);
+  border-top: 6px solid #de3163;
   border-left: 6px solid rgba(190, 112, 235, 0);
   border-right: 6px solid rgba(190, 112, 235, 0);
   border-bottom: 6px solid rgba(190, 112, 235, 0);

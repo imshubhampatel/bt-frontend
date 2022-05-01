@@ -37,3 +37,7 @@ a {
   min-height: 100%;
   margin: 0 auto;
 }
+
+.css-3h9xom-MuiPaper-root-MuiAlert-root {
+  background-color: #e52b50 !important;
+}

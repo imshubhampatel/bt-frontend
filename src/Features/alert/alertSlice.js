@@ -1,19 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  message: false,
-  successMessage: false,
-  errorMessage: false,
-  loading: false,
-  success: false,
-  error: false,
+  SHOW_SUCCESS_MESSAGE: false,
+  SHOW_ERROR_MESSAGE: false,
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const alertSlice = createSlice({
+  name: "alert",
   initialState,
-  reducers: {},
+  reducers: {
+    showMessage: (state, { payload }) => {
+      state.SHOW_SUCCESS_MESSAGE = payload;
+      state.SHOW_ERROR_MESSAGE = false;
+    },
+    showError: (state, { payload }) => {
+      state.SHOW_SUCCESS_MESSAGE = false;
+      state.SHOW_ERROR_MESSAGE = payload;
+    },
+    clearMessages: (state) => {
+      state.SHOW_ERROR_MESSAGE = false;
+      state.SHOW_SUCCESS_MESSAGE = false;
+    },
+  },
   extraReducers: {},
 });
 
-export default authSlice.reducer;
+export const { showError, showMessage, clearMessages } = alertSlice.actions;
+export default alertSlice.reducer;

@@ -12,6 +12,11 @@
   background-position: center;
 }
 
+.header_blur {
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+}
+
 .signIn_styles {
   background-color: #fbfbfb;
   width: 400px;

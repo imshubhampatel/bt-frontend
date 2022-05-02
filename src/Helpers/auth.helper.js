@@ -9,4 +9,6 @@ function Authenticate(data, callback) {
   callback();
 }
 
+// const isAuthenticated  ()
+
 export { Authenticate };

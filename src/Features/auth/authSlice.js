@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../Axios";
 import { Authenticate } from "../../Helpers/auth.helper";
-import { showMessage } from "../alert/alertSlice";
+import { showError, showMessage } from "../alert/alertSlice";
 
+//checking auth creds
 export const setUserDetails = createAsyncThunk(
   "users/setUserDetails",
   async (values, thunkAPI) => {
@@ -18,7 +19,6 @@ export const setUserDetails = createAsyncThunk(
 
       Authenticate(data, function () {
         console.log("created");
-        thunkAPI.dispatch(showMessage(data.data.message));
         setTimeout(() => {
           thunkAPI.dispatch(clearErrorAndSuccess());
         }, 2000);
@@ -26,9 +26,32 @@ export const setUserDetails = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error.response.data.data);
+      thunkAPI.dispatch(showError(error.response.data.data.message));
       setTimeout(() => {
         thunkAPI.dispatch(clearErrorAndSuccess());
       }, 2000);
+      return thunkAPI.rejectWithValue(error.response.data.data);
+    }
+  }
+);
+
+// sending otp
+export const sendOtp = createAsyncThunk(
+  "users/otp",
+  async (token, thunkAPI) => {
+    alert(JSON.stringify(token));
+    try {
+      let config = {
+        method: "post",
+        url: "/super-admin/send-otp",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      let { data } = await axios(config);
+      thunkAPI.dispatch(otpVerification());
+      return data;
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.data);
     }
   }
@@ -41,6 +64,7 @@ const initialState = {
   loading: false,
   success: false,
   error: false,
+  isOtpVerified: false, //? otp verification
 };
 
 const authSlice = createSlice({
@@ -53,6 +77,9 @@ const authSlice = createSlice({
     clearErrorAndSuccess: (state, payload) => {
       state.success = false;
       state.error = false;
+    },
+    otpVerification: (state) => {
+      state.isOtpVerified = true;
     },
   },
   extraReducers: {
@@ -76,5 +103,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearErrorAndSuccess } = authSlice.actions;
+export const { clearErrorAndSuccess, otpVerification, setUser } =
+  authSlice.actions;
 export default authSlice.reducer;

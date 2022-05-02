@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrorAndSuccess,
+  sendOtp,
   setUserDetails,
 } from "../../Features/auth/authSlice";
 import Loader from "../Loader/Loader";
-import { unwrapResult } from "@reduxjs/toolkit";
 
 //? material ui
 
@@ -18,7 +18,7 @@ const SignIn = () => {
 
   const state = useSelector((state) => state.auth);
   console.log(state);
-  const { success, error, loading } = state;
+  const { success, error, loading, token } = state;
   const [showText, SetShowText] = useState(false);
   const [showEye, setShowEye] = useState(false);
   const [Values, setValues] = useState({
@@ -36,9 +36,7 @@ const SignIn = () => {
 
   const redirectHandler = () => {
     if (success) {
-      setTimeout(() => {
-        navigate("/otp-verification");
-      }, 1000);
+      navigate("/otp-verification");
     }
   };
 
@@ -47,6 +45,7 @@ const SignIn = () => {
     console.log(Values);
     dispatch(setUserDetails(Values));
   };
+
   return (
     <>
       {loading ? (

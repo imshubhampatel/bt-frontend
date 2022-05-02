@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useMemo } from "react";
 import styles from "./VerifyOtp.module.css";
 import logo from "../../assets/images/BT LOGO.jpg";
 import { Navigate } from "react-router-dom";
 import axios from "../../Axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Loader from "../Loader/Loader";
+import { sendOtp } from "../../Features/auth/authSlice";
+import { useEffectOnce } from "../../Helpers/useEffect";
 
 //? material ui
 
 const VerifyOtp = () => {
   const [pressedKey, setPressedKey] = useState("");
-  const { token, success, error, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { token, error, loading } = useSelector((state) => state.auth);
+
+  //sending otp
 
   const [otp, setOtp] = useState({
     otp1: "",
@@ -72,6 +77,12 @@ const VerifyOtp = () => {
     console.log(name, e);
   };
 
+  useEffectOnce(() => {
+    if (token) {
+      dispatch(sendOtp(token));
+    }
+    alert("rednder");
+  }, []);
   return (
     <>
       {loading ? (

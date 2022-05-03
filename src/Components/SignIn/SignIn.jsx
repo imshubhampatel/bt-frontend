@@ -36,6 +36,7 @@ const SignIn = () => {
 
   const redirectHandler = () => {
     if (success) {
+      dispatch(clearErrorAndSuccess());
       navigate("/otp-verification");
     }
   };

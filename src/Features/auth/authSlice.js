@@ -21,7 +21,7 @@ export const setUserDetails = createAsyncThunk(
         console.log("created");
         setTimeout(() => {
           thunkAPI.dispatch(clearErrorAndSuccess());
-        }, 2000);
+        }, 1000);
       });
       return data;
     } catch (error) {
@@ -37,9 +37,9 @@ export const setUserDetails = createAsyncThunk(
 
 // sending otp
 export const sendOtp = createAsyncThunk(
-  "users/otp",
+  "users/send-otp",
   async (token, thunkAPI) => {
-    alert(JSON.stringify(token));
+    // alert(JSON.stringify(token));
     try {
       let config = {
         method: "post",
@@ -49,9 +49,43 @@ export const sendOtp = createAsyncThunk(
         },
       };
       let { data } = await axios(config);
-      thunkAPI.dispatch(otpVerification());
+      thunkAPI.dispatch(isOtpSent());
+      // alert(JSON.stringify(data));
       return data;
     } catch (error) {
+      // alert("inside catch");
+      alert(JSON.stringify(error.response.data));
+      return thunkAPI.rejectWithValue(error.response.data.data);
+    }
+  }
+);
+
+//? otp verification
+export const verifyOtp = createAsyncThunk(
+  "users/verify-otp",
+  async (values, thunkAPI) => {
+    alert(JSON.stringify(values));
+    try {
+      let config = {
+        method: "post",
+        url: "/super-admin/otp-varification",
+        headers: {
+          Authorization: `Bearer ${values.token}`,
+        },
+        data: { otp: values.otp },
+      };
+      let { data } = await axios(config);
+      alert(JSON.stringify(data));
+      localStorage.setItem("is_otp_verified", JSON.stringify(true));
+      setTimeout(() => {
+        thunkAPI.dispatch(clearErrorAndSuccess());
+      }, 2000);
+      // thunkAPI.dispatch(otpVerification());
+      return data;
+    } catch (error) {
+      setTimeout(() => {
+        thunkAPI.dispatch(clearErrorAndSuccess());
+      }, 2000);
       return thunkAPI.rejectWithValue(error.response.data.data);
     }
   }
@@ -60,11 +94,13 @@ export const sendOtp = createAsyncThunk(
 const initialState = {
   isLoggedIn: false,
   token: false,
-  isAuthenticated: false,
+  isAuthenticated:
+    JSON.parse(localStorage.getItem("is_authenticated")) || false, // ? otp
   loading: false,
   success: false,
   error: false,
-  isOtpVerified: false, //? otp verification
+  isOtpSent: false,
+  isOtpVerified: JSON.parse(localStorage.getItem("is_otp_verified")) || false, //? otp verification
 };
 
 const authSlice = createSlice({
@@ -78,8 +114,9 @@ const authSlice = createSlice({
       state.success = false;
       state.error = false;
     },
-    otpVerification: (state) => {
-      state.isOtpVerified = true;
+    isOtpSent: (state) => {
+      state.isOtpSent = true;
+      state.success = false;
     },
   },
   extraReducers: {
@@ -100,9 +137,21 @@ const authSlice = createSlice({
       state.success = false;
       state.error = true;
     },
+    [verifyOtp.pending]: (state) => {
+      state.loading = true;
+    },
+    [verifyOtp.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.isOtpVerified = true;
+      state.success = true;
+    },
+    [verifyOtp.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.isOtpVerified = false;
+      state.error = true;
+    },
   },
 });
 
-export const { clearErrorAndSuccess, otpVerification, setUser } =
-  authSlice.actions;
+export const { clearErrorAndSuccess, isOtpSent, setUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,20 +1,44 @@
 import React, { useState, useEffect, useLayoutEffect, useMemo } from "react";
 import styles from "./VerifyOtp.module.css";
 import logo from "../../assets/images/BT LOGO.jpg";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "../../Axios";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../Loader/Loader";
-import { sendOtp } from "../../Features/auth/authSlice";
+import { sendOtp, verifyOtp } from "../../Features/auth/authSlice";
 import { useEffectOnce } from "../../Helpers/useEffect";
+import { showError, showMessage } from "../../Features/alert/alertSlice";
 
 //? material ui
 
 const VerifyOtp = () => {
   const [pressedKey, setPressedKey] = useState("");
+  let nevigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, error, loading } = useSelector((state) => state.auth);
+  const { token, loading, success, error, isOtpVerified, isOtpSent } =
+    useSelector((state) => state.auth);
+  console.log(loading);
 
+  if (error) {
+    dispatch(showError("Incorrect otp"));
+  }
+
+  if (success) {
+    setTimeout(() => {
+      nevigate("/super-admin/dashboard");
+    }, 500);
+  }
+  useEffect(() => {
+    if (isOtpSent) {
+      dispatch(showMessage("Otp sent successfully"));
+    }
+  }, [isOtpSent]);
+
+  useEffect(() => {
+    if (isOtpVerified) {
+      dispatch(showMessage("otp verification was successfull"));
+    }
+  }, [isOtpVerified]);
   //sending otp
 
   const [otp, setOtp] = useState({
@@ -30,23 +54,7 @@ const VerifyOtp = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     let finalOtp = `${otp.otp1}${otp.otp2}${otp.otp3}${otp.otp4}${otp.otp5}${otp.otp6}`;
-    console.log(finalOtp);
-    alert(finalOtp);
-    try {
-      let config = {
-        method: "post",
-        url: "super-admin/otp-varification",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: { otp: finalOtp },
-      };
-      let { data } = await axios(config);
-      console.log(data);
-      console.log(data);
-    } catch (error) {
-      console.log("hey", error.response.data);
-    }
+    dispatch(verifyOtp({ token: token, otp: finalOtp }));
   };
 
   const inputFocus = (elmnt) => {
@@ -73,15 +81,12 @@ const VerifyOtp = () => {
     console.log(e.target.value);
     inputFocus(e);
     setOtp({ ...otp, [name]: e.target.value });
-    console.log(otp);
-    console.log(name, e);
   };
 
   useEffectOnce(() => {
     if (token) {
       dispatch(sendOtp(token));
     }
-    alert("rednder");
   }, []);
   return (
     <>

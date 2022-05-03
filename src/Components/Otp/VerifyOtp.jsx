@@ -26,7 +26,7 @@ const VerifyOtp = () => {
   if (success) {
     setTimeout(() => {
       nevigate("/super-admin/dashboard");
-    }, 500);
+    }, 1000);
   }
   useEffect(() => {
     if (isOtpSent) {

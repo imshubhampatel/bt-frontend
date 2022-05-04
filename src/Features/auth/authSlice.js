@@ -71,7 +71,7 @@ export const sendOtp = createAsyncThunk(
       };
       let { data } = await axios(config);
       thunkAPI.dispatch(isOtpSent());
-      localStorage.setItem("is_otp_sent", JSON.stringify(true));
+      // localStorage.setItem("is_otp_sent", JSON.stringify(true));
       // alert(JSON.stringify(data));
       return data;
     } catch (error) {
@@ -114,14 +114,14 @@ export const verifyOtp = createAsyncThunk(
 );
 
 const initialState = {
-  isLoggedIn: JSON.parse(localStorage.getItem("is_login")),
-  token: false,
-  isAuthenticated:
-    JSON.parse(localStorage.getItem("is_authenticated")) || false, // ? otp
   loading: false,
   success: false,
   error: false,
-  isOtpSent: JSON.parse(localStorage.getItem("is_otp_sent")) || false,
+  token: false,
+  isOtpSent: false,
+  isLoggedIn: JSON.parse(localStorage.getItem("is_login")) || false,
+  isAuthenticated:
+    JSON.parse(localStorage.getItem("is_authenticated")) || false, // ? otp
   isOtpVerified: JSON.parse(localStorage.getItem("is_otp_verified")) || false, //? otp verification
 };
 

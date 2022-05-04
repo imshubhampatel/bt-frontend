@@ -7,7 +7,7 @@ import { showError, showMessage } from "../alert/alertSlice";
 export const setUserDetails = createAsyncThunk(
   "super-admin/setUserDetails",
   async (values, thunkAPI) => {
-    alert(JSON.stringify(values));
+    // alert(JSON.stringify(values));
     try {
       let config = {
         method: "post",
@@ -71,6 +71,7 @@ export const sendOtp = createAsyncThunk(
       };
       let { data } = await axios(config);
       thunkAPI.dispatch(isOtpSent());
+      thunkAPI.dispatch(showMessage("Otp sent successfully"));
       // localStorage.setItem("is_otp_sent", JSON.stringify(true));
       // alert(JSON.stringify(data));
       return data;
@@ -86,7 +87,7 @@ export const sendOtp = createAsyncThunk(
 export const verifyOtp = createAsyncThunk(
   "super-admin/verify-otp",
   async (values, thunkAPI) => {
-    alert(JSON.stringify(values));
+    // alert(JSON.stringify(values));
     try {
       let config = {
         method: "post",
@@ -99,12 +100,14 @@ export const verifyOtp = createAsyncThunk(
       let { data } = await axios(config);
       // alert(JSON.stringify(data));
       localStorage.setItem("is_otp_verified", JSON.stringify(true));
+      thunkAPI.dispatch(showMessage("Otp verification was successfull"));
       setTimeout(() => {
         thunkAPI.dispatch(clearErrorAndSuccess());
       }, 2000);
       // thunkAPI.dispatch(otpVerification());
       return data;
     } catch (error) {
+      thunkAPI.dispatch(showError(error.response.data.data.message));
       setTimeout(() => {
         thunkAPI.dispatch(clearErrorAndSuccess());
       }, 2000);

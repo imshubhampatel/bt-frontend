@@ -14,6 +14,8 @@ export default function ManageRoutes() {
         <ShowSuccess />
         <ShowError />
         <Routes>
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/otp-verification" element={<VerifyOtp />} />
           <Route
             path="/super-admin/dashboard"
             element={
@@ -22,8 +24,6 @@ export default function ManageRoutes() {
               </PrivateRoute>
             }
           />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/otp-verification" element={<VerifyOtp />} />
         </Routes>
       </BrowserRouter>
     </>

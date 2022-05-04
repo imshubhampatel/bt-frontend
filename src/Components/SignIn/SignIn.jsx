@@ -9,6 +9,7 @@ import {
   setUserDetails,
 } from "../../Features/auth/authSlice";
 import Loader from "../Loader/Loader";
+import { isAuthenticated } from "../../Helpers/auth.helper.js";
 
 //? material ui
 
@@ -18,7 +19,7 @@ const SignIn = () => {
 
   const state = useSelector((state) => state.auth);
   console.log(state);
-  const { success, error, loading, token } = state;
+  const { success, error, isLoggedIn, isOtpVerified, loading, token } = state;
   const [showText, SetShowText] = useState(false);
   const [showEye, setShowEye] = useState(false);
   const [Values, setValues] = useState({
@@ -38,6 +39,11 @@ const SignIn = () => {
     if (success) {
       dispatch(clearErrorAndSuccess());
       navigate("/otp-verification");
+      return;
+    }
+    if (isAuthenticated()) {
+      navigate("/super-admin/dashboard");
+      return;
     }
   };
 

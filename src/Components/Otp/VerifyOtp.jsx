@@ -8,6 +8,7 @@ import Loader from "../Loader/Loader";
 import { getToken, sendOtp, verifyOtp } from "../../Features/auth/authSlice";
 import { useEffectOnce } from "../../Helpers/useEffect";
 import { showError, showMessage } from "../../Features/alert/alertSlice";
+import { isAuthenticated } from "../../Helpers/auth.helper.js";
 
 const VerifyOtp = () => {
   const [pressedKey, setPressedKey] = useState("");
@@ -21,6 +22,7 @@ const VerifyOtp = () => {
     isOtpVerified,
     isLoggedIn,
     isOtpSent,
+    isAuthenticated: isAuth,
   } = useSelector((state) => state.auth);
   console.log(loading);
 
@@ -37,17 +39,16 @@ const VerifyOtp = () => {
       nevigate("/super-admin/dashboard");
     }, 1000);
   }
-  useEffect(() => {
-    if (isOtpSent) {
-      dispatch(showMessage("Otp sent successfully"));
-    }
-  }, [isOtpSent]);
 
   useEffect(() => {
-    if (isOtpVerified) {
-      dispatch(showMessage("otp verification was successfull"));
+    if (!isAuth) {
+      nevigate("/sign-in");
     }
-  }, [isOtpVerified]);
+    if (isAuthenticated()) {
+      nevigate("/super-admin/dashboard");
+    }
+  }, []);
+
   //sending otp
 
   const [otp, setOtp] = useState({

@@ -17,7 +17,6 @@ const isAuthenticated = () => {
   if (is_authenticated && is_login && is_otp_verified) {
     return true;
   } else {
-    localStorage.clear();
     return false;
   }
 };

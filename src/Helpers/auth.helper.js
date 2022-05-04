@@ -9,6 +9,17 @@ function Authenticate(data, callback) {
   callback();
 }
 
-// const isAuthenticated  ()
+const isAuthenticated = () => {
+  let is_login = JSON.parse(localStorage.getItem("is_login"));
+  let is_authenticated = JSON.parse(localStorage.getItem("is_authenticated"));
+  let is_otp_verified = JSON.parse(localStorage.getItem("is_otp_verified"));
+  console.log(is_authenticated, is_login, is_otp_verified);
+  if (is_authenticated && is_login && is_otp_verified) {
+    return true;
+  } else {
+    localStorage.clear();
+    return false;
+  }
+};
 
-export { Authenticate };
+export { Authenticate, isAuthenticated };

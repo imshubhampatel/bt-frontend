@@ -1,7 +1,107 @@
 .admin_image img {
-  border: 1px solid blue;
-  max-width: 140px;
+  width: 80px;
+  height: 80px;
   display: block;
   margin: 10px auto;
   border-radius: 50%;
+}
+
+.sidetext {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  margin: 5px auto;
+}
+.sidetext.date_text {
+  color: #fff;
+  font-size: 1.34rem;
+  font-weight: 400;
+}
+.sidebar_wrapper {
+  min-height: 900px;
+  width: 20%;
+
+  background: #43425d;
+}
+
+.admin {
+  text-align: center;
+  margin: 20px;
+}
+
+.admin_name {
+  color: white;
+
+  margin-top: 10px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+.time {
+  color: white;
+
+  font-family: Open Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+.admin_img_wrapper {
+  width: 100px;
+  height: 100px;
+
+  margin: auto;
+}
+
+.admin_img_wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.nav_items {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+
+  transition: 0.5s all;
+}
+
+.nav_items a {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0px;
+
+  color: white;
+  text-decoration: none;
+
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  transition: 0.5s all;
+}
+
+.active {
+  background-color: white;
+  color: #43425d !important;
 }

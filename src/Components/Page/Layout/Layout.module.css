@@ -1,6 +1,6 @@
 .container {
-  min-width: 136.5rem;
-  max-width: 136.5rem;
+  min-width: 136.6rem;
+  /* max-width: 136.5rem; */
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -8,7 +8,13 @@
 
 .sideBar {
   width: 18%;
-  border: 1px solid #ddd;
+  background-color: #43425d;
+  /* background-color: #f0f0f7; */
+}
+
+.layout {
+  background-color: #f0f0f7;
+  height: 97%;
 }
 .container .layout_header {
   width: 100%;

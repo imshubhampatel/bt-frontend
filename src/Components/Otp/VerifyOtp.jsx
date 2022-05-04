@@ -5,19 +5,28 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../Axios";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../Loader/Loader";
-import { sendOtp, verifyOtp } from "../../Features/auth/authSlice";
+import { getToken, sendOtp, verifyOtp } from "../../Features/auth/authSlice";
 import { useEffectOnce } from "../../Helpers/useEffect";
 import { showError, showMessage } from "../../Features/alert/alertSlice";
-
-//? material ui
 
 const VerifyOtp = () => {
   const [pressedKey, setPressedKey] = useState("");
   let nevigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, loading, success, error, isOtpVerified, isOtpSent } =
-    useSelector((state) => state.auth);
+  const {
+    token,
+    loading,
+    success,
+    error,
+    isOtpVerified,
+    isLoggedIn,
+    isOtpSent,
+  } = useSelector((state) => state.auth);
   console.log(loading);
+
+  useEffect(() => {
+    // dispatch(getAccessToken());
+  }, [isLoggedIn]);
 
   if (error) {
     dispatch(showError("Incorrect otp"));
@@ -67,6 +76,10 @@ const VerifyOtp = () => {
     }
   };
 
+  useEffectOnce(() => {
+    dispatch(getToken());
+  }, []);
+
   const otpDelete = (elmnt) => {
     setPressedKey(elmnt.key);
     console.log(elmnt.key);
@@ -87,7 +100,8 @@ const VerifyOtp = () => {
     if (token) {
       dispatch(sendOtp(token));
     }
-  }, []);
+  }, [token]);
+
   return (
     <>
       {loading ? (

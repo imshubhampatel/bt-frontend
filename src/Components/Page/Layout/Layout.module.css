@@ -1,0 +1,15 @@
+.container {
+  min-width: 136.5rem;
+  max-width: 136.5rem;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+}
+
+.sideBar {
+  width: 18%;
+  border: 1px solid #ddd;
+}
+.container .layout_header {
+  width: 100%;
+}

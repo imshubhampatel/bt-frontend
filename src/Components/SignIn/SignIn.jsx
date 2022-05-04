@@ -10,7 +10,6 @@ import {
 } from "../../Features/auth/authSlice";
 import Loader from "../Loader/Loader";
 
-
 //? material ui
 
 const SignIn = () => {

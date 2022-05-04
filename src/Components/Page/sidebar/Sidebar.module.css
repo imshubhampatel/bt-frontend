@@ -1,0 +1,7 @@
+.admin_image img {
+  border: 1px solid blue;
+  max-width: 140px;
+  display: block;
+  margin: 10px auto;
+  border-radius: 50%;
+}

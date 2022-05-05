@@ -46,3 +46,13 @@ a {
 .css-3h9xom-MuiPaper-root-MuiAlert-root {
   background-color: #e52b50 !important;
 }
+
+.buttons_icon .css-i4bv87-MuiSvgIcon-root {
+  font-size: 2.4rem !important;
+}
+
+.buttons_icon .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+  background-color: #e6ecf7 !important;
+  margin: 5px !important;
+  border-radius: 5px !important;
+}

@@ -1,0 +1,27 @@
+.parentHeader {
+  display: inline-block;
+}
+
+.headerContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.text {
+  font-size: 3rem;
+  font-weight: 700;
+  padding: 5px;
+  margin: 5px;
+}
+
+.headerContent > div {
+  min-width: 571px;
+}
+.right {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}

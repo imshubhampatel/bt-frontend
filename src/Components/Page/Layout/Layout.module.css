@@ -1,6 +1,6 @@
 .container {
-  min-width: 136.6rem;
-  /* max-width: 136.5rem; */
+  min-width: 134.9rem;
+  max-width: 134.9rem;
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -18,4 +18,5 @@
 }
 .container .layout_header {
   width: 100%;
+  margin: 0px;
 }

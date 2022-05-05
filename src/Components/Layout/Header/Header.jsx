@@ -12,18 +12,14 @@ import { EditOutlined } from "@mui/icons-material";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { InfoOutlined } from "@mui/icons-material";
 
-export default function Header({
-  createUniversityBtn,
-  updateUniversityBtn,
-  deleteUniversityBtn,
-}) {
+export default function Header({ compName }) {
   return (
     <>
       <div className={styles.parentHeader}>
         <div className={`${styles.headerContent} ${styles.content}`}>
           <div className={`${styles.headerLeft} ${styles.left}`}>
             <div className={`${styles.text} ${styles.heading_text}`}>
-              Dashboard
+              {compName}
             </div>
           </div>
           <div className={`${styles.headerRight} ${styles.right}`}>

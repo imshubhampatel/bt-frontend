@@ -56,3 +56,23 @@ a {
   margin: 5px !important;
   border-radius: 5px !important;
 }
+
+p#errorHandler {
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  font-size: 1.3rem !important;
+  color: #e52b50;
+}
+
+p#errorHandler:first-of-type {
+  /* border: 1px solid black; */
+  position: absolute;
+  top: 20%;
+  left: 15%;
+}
+p#errorHandler:last-of-type {
+  /* border: 1px solid blue; */
+  position: absolute;
+  top: 50%;
+  left: 15%;
+}

@@ -18,9 +18,9 @@ const Pages = [
     icon: <AvTimerIcon />,
   },
   {
-    name: "Playground",
-    path: "/super-admin/playground",
-    icon: <SportsSoccerIcon />,
+    name: "Events",
+    path: "/super-admin/events",
+    icon: <EventIcon />,
   },
   {
     name: "Institutions",
@@ -54,11 +54,6 @@ const Pages = [
     icon: <GroupAddIcon />,
   },
   {
-    name: "Events",
-    path: "/super-admin/events",
-    icon: <EventIcon />,
-  },
-  {
     name: "Videos",
     path: "/super-admin/videos",
     icon: <AvTimerIcon />,
@@ -82,7 +77,7 @@ const Pages = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   let current = new Date();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
   let currentDay = days[current.getDay()];

@@ -4,9 +4,9 @@ import SignIn from "../Components/SignIn/SignIn";
 import VerifyOtp from "../Components/Otp/VerifyOtp";
 import ShowSuccess from "../Components/Alert/ShowSuccess";
 import ShowError from "../Components/Alert/ShowError";
-import Layout from "../Components/Page/Layout/Layout";
-import Dashboard from "../Pages/Dashboard/Dashboard";
+import Layout from "../Components/Layout/Layout/Layout";
 import PrivateRoute from "../Routes/PrivateRoutes";
+import { Dashboard, Events } from "../Pages/";
 export default function ManageRoutes() {
   return (
     <>
@@ -21,6 +21,14 @@ export default function ManageRoutes() {
             element={
               <PrivateRoute>
                 <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/super-admin/events"
+            element={
+              <PrivateRoute>
+                <Events />
               </PrivateRoute>
             }
           />

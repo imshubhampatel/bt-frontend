@@ -68,8 +68,13 @@ input[type="submit"] {
 }
 input[type="submit"]:hover {
   cursor: pointer;
-  border: 1px solid #e52b50;
+  border: 2px solid #e52b50;
 }
+
+input:focus {
+  border: 1px solid #aaa;
+}
+
 .formBox {
   position: relative;
 }
@@ -92,6 +97,12 @@ i {
   justify-content: center;
   align-items: center;
 }
+.formBox div:first-of-type {
+  top: 0;
+}
+.formBox div:last-of-type {
+  top: 60px;
+}
 
 input[type="checkbox"] {
   width: 30px;
@@ -113,4 +124,15 @@ span.showpassword {
   position: absolute;
   right: 20px;
   padding-top: 10px;
+}
+
+input[type="text"]:focus ~ div:first-of-type {
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent #aaa transparent transparent;
+}
+input[type="password"]:focus ~ div:last-of-type {
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent #aaa transparent transparent;
 }

@@ -10,6 +10,7 @@ import {
 } from "../../Features/auth/authSlice";
 import Loader from "../Loader/Loader";
 import { isAuthenticated } from "../../Helpers/auth.helper.js";
+import { Error, ErrorRounded } from "@mui/icons-material";
 
 //? material ui
 
@@ -23,9 +24,35 @@ const SignIn = () => {
   const [showText, SetShowText] = useState(false);
   const [showEye, setShowEye] = useState(false);
   const [Values, setValues] = useState({
-    email: "shubhampatel@appslure.com",
-    password: "@shubham456",
+    email: "",
+    password: "",
   });
+
+  const [FormError, setFormError] = useState({
+    email: false,
+    password: false,
+  });
+
+  let formValidation = () => {
+    let isError = false;
+
+    let err = {
+      email: false,
+      password: false,
+    };
+
+    if (Values.email === "") {
+      isError = true;
+      err.email = "Please enter email first";
+    }
+    if (Values.password === "") {
+      isError = true;
+      err.password = "Please enter password first";
+    }
+    setFormError(err);
+    console.log(FormError);
+    return isError;
+  };
 
   useEffect(() => {
     if (Values.password.length == 0) {
@@ -50,7 +77,9 @@ const SignIn = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(Values);
-    dispatch(setUserDetails(Values));
+    if (!formValidation()) {
+      dispatch(setUserDetails(Values));
+    }
   };
 
   return (
@@ -73,9 +102,9 @@ const SignIn = () => {
                 {/* {success && <p>{userAuthData}</p>} */}
 
                 <div className={`${styles.formBox} ${styles}`}>
-                  <div>
-                    <i className="fas fa-user-circle"></i>
-                  </div>
+                  {FormError?.email && (
+                    <p id="errorHandler">{FormError.email}</p>
+                  )}
                   <input
                     type="text"
                     name="username"
@@ -86,8 +115,9 @@ const SignIn = () => {
                     }
                   />
                   <div>
-                    <i className="fas fa-mars-stroke"></i>
+                    <i className="fas fa-user-circle"></i>
                   </div>
+
                   {showEye && (
                     <span
                       className={styles.showpassword}
@@ -99,6 +129,9 @@ const SignIn = () => {
                     </span>
                   )}
                   <span></span>
+                  {FormError?.password && (
+                    <p id="errorHandler">{FormError.password}</p>
+                  )}
                   <input
                     type={`${!showText ? "password" : "text"}`}
                     placeholder="password"
@@ -106,7 +139,9 @@ const SignIn = () => {
                       setValues({ ...Values, password: e.target.value })
                     }
                   />
-
+                  <div>
+                    <i className="fas fa-mars-stroke"></i>
+                  </div>
                   <section className={`${styles.login} ${styles}`}>
                     <span className={`${styles.remember} ${styles}`}>
                       <input type="checkbox" id="remember" name="remember" />

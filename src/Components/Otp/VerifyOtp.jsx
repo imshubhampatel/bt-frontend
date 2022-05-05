@@ -64,7 +64,12 @@ const VerifyOtp = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     let finalOtp = `${otp.otp1}${otp.otp2}${otp.otp3}${otp.otp4}${otp.otp5}${otp.otp6}`;
-    dispatch(verifyOtp({ token: token, otp: finalOtp }));
+    console.log(finalOtp.length);
+    if (finalOtp !== "" && finalOtp.length == 6) {
+      dispatch(verifyOtp({ token: token, otp: finalOtp }));
+      return;
+    }
+    dispatch(showError("Please enter OTP first"));
   };
 
   const inputFocus = (elmnt) => {

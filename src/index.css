@@ -26,7 +26,6 @@ input[type="number"] {
 html,
 body {
   height: 100%;
-  font-size: 62.5%;
 }
 
 p,
@@ -34,7 +33,6 @@ div,
 span,
 li,
 a {
-  font-size: 1.6rem;
 }
 
 .container {
@@ -48,7 +46,7 @@ a {
 }
 
 .buttons_icon .css-i4bv87-MuiSvgIcon-root {
-  font-size: 2.4rem !important;
+  font-size: 24px !important;
 }
 
 .buttons_icon .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
@@ -60,7 +58,7 @@ a {
 p#errorHandler {
   font-family: "Roboto", sans-serif;
   font-weight: 200;
-  font-size: 1.3rem !important;
+  font-size: 13px !important;
   color: #e52b50;
 }
 
@@ -75,4 +73,19 @@ p#errorHandler:last-of-type {
   position: absolute;
   top: 50%;
   left: 15%;
+}
+.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+  max-width: 358px !important;
+}
+.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+  min-height: 423px !important;
+  max-height: 423px !important;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #e52b50 !important;
+  border-color: #e52b50 !important ;
+}
+.MuiOutlinedInput-input.MuiInputBase-input.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  border-color: #e52b50 !important ;
 }

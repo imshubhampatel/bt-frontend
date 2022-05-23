@@ -11,8 +11,14 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { EditOutlined } from "@mui/icons-material";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { InfoOutlined } from "@mui/icons-material";
+import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
+import { logout } from "../../../Features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-export default function Header({ compName }) {
+export default function Header(props) {
+  let { compName, addBtn } = props;
+  const dispatch = useDispatch();
   return (
     <>
       <div className={styles.parentHeader}>
@@ -26,11 +32,18 @@ export default function Header({ compName }) {
             <div
               className={` buttons_icon ${styles.buttons} ${styles.header_button}`}
             >
-              <Tooltip title="plus">
-                <IconButton>
-                  <AddIcon />
-                </IconButton>
-              </Tooltip>
+              <div className={`${styles.searchBar} ${styles.searchItem}`}>
+                <input type="text" placeholder="search here" />
+              </div>
+              {addBtn && (
+                <Tooltip title="plus">
+                  <IconButton>
+                    <Link to={addBtn}>
+                      <AddIcon />
+                    </Link>
+                  </IconButton>
+                </Tooltip>
+              )}
               <Tooltip title="edit">
                 <IconButton>
                   <EditOutlined />
@@ -44,6 +57,16 @@ export default function Header({ compName }) {
               <Tooltip title="info">
                 <IconButton>
                   <InfoOutlined />
+                </IconButton>
+              </Tooltip>
+              <Tooltip
+                title="Logout"
+                onClick={() => {
+                  dispatch(logout());
+                }}
+              >
+                <IconButton>
+                  <PowerSettingsNewOutlinedIcon />
                 </IconButton>
               </Tooltip>
             </div>

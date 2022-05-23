@@ -1,6 +1,6 @@
 .container {
-  min-width: 134.9rem;
-  max-width: 134.9rem;
+  min-width: 1349px;
+  max-width: 1349px;
   min-height: 100vh;
   margin: 0 auto;
   display: flex;

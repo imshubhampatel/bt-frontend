@@ -18,8 +18,8 @@ const Pages = [
     icon: <AvTimerIcon />,
   },
   {
-    name: "Events",
-    path: "/super-admin/events",
+    name: "News",
+    path: "/super-admin/news",
     icon: <EventIcon />,
   },
   {
@@ -91,14 +91,7 @@ const Sidebar = (props) => {
     <>
       <div className={`${styles.sidebar_hemburger} ${styles.hemburger}`}>
         <div className={`${styles.admin_image} ${styles.image_admin}`}>
-          <div className={styles.logo}>
-            <img
-              src={
-                "https://cdn-icons.flaticon.com/png/128/2202/premium/2202112.png?token=exp=1651686186~hmac=1576e39846698699ee24269862b3e070"
-              }
-              alt="logo"
-            />
-          </div>
+          <div className={styles.logo}></div>
           <div className={`${styles.sidetext} ${styles.admin_text}`}>admin</div>
           <div className={`${styles.sidetext} ${styles.date_text}`}>
             Wed 11:00 AM

@@ -11,7 +11,7 @@
 }
 
 .text {
-  font-size: 3rem;
+  font-size: 30px;
   font-weight: 700;
   padding: 5px;
   margin: 5px;
@@ -24,4 +24,21 @@
   display: flex;
   justify-content: right;
   align-items: center;
+}
+
+.searchBar {
+  display: inline-block;
+  height: auto;
+  margin: 6px 20px;
+  border: 1px solid #e6ecf7;
+  border-radius: 5px;
+  position: absolute;
+  top: 4px;
+  right: 18%;
+}
+
+.searchBar input {
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
 }

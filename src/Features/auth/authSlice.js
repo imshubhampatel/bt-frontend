@@ -16,13 +16,11 @@ export const setUserDetails = createAsyncThunk(
       };
       let { data } = await axios(config);
       console.log(data);
-
-      Authenticate(data, function () {
-        console.log("created");
-        setTimeout(() => {
-          thunkAPI.dispatch(clearErrorAndSuccess());
-        }, 1000);
-      });
+      localStorage.setItem("token", JSON.stringify(data.data));
+      localStorage.setItem("is_login", JSON.stringify(true));
+      setTimeout(() => {
+        thunkAPI.dispatch(clearErrorAndSuccess());
+      }, 1000);
       return data;
     } catch (error) {
       console.log(error.response.data.data);
@@ -43,8 +41,35 @@ export const getToken = createAsyncThunk(
         url: "/super-admin/refresh-token",
       };
       let { data } = await axios(config);
+
       // alert(JSON.stringify(data.data.token));
       return data.data.token;
+    } catch (error) {
+      console.log(error.response.data.data);
+      setTimeout(() => {
+        thunkAPI.dispatch(clearErrorAndSuccess());
+      }, 2000);
+      return thunkAPI.rejectWithValue(error.response.data.data);
+    }
+  }
+);
+export const logout = createAsyncThunk(
+  "super-admin/sign-out",
+  async (values, thunkAPI) => {
+    try {
+      let config = {
+        method: "post",
+        url: "/super-admin/sign-out",
+      };
+      let { data } = await axios(config);
+      // alert(JSON.stringify(data.data.token));
+      thunkAPI.dispatch(logout());
+      localStorage.clear();
+      thunkAPI.dispatch(showError(data.data.message));
+      setTimeout(() => {
+        window.location = "/";
+      }, 1000);
+      return data.data;
     } catch (error) {
       console.log(error.response.data.data);
       thunkAPI.dispatch(showError(error.response.data.data.message));
@@ -98,8 +123,10 @@ export const verifyOtp = createAsyncThunk(
         data: { otp: values.otp },
       };
       let { data } = await axios(config);
+      Authenticate(data, () => {
+        console.log("created");
+      });
       // alert(JSON.stringify(data));
-      localStorage.setItem("is_otp_verified", JSON.stringify(true));
       thunkAPI.dispatch(showMessage("Otp verification was successfull"));
       setTimeout(() => {
         thunkAPI.dispatch(clearErrorAndSuccess());
@@ -143,6 +170,15 @@ const authSlice = createSlice({
       state.isOtpSent = true;
       state.success = false;
     },
+    signOut: (state) => {
+      state.isAuthenticated = false;
+      state.isLoggedIn = false;
+      state.token = false;
+      state.isOtpVerified = false;
+      state.isOtpSent = false;
+      state.success = false;
+      state.error = false;
+    },
   },
   extraReducers: {
     [setUserDetails.pending]: (state) => {
@@ -150,7 +186,6 @@ const authSlice = createSlice({
     },
     [setUserDetails.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.isAuthenticated = true;
       state.isLoggedIn = true;
       state.token = payload.data.token;
       state.success = true;
@@ -168,11 +203,14 @@ const authSlice = createSlice({
     [verifyOtp.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.isOtpVerified = true;
+      state.isAuthenticated = true;
+      state.error = false;
       state.success = true;
     },
     [verifyOtp.rejected]: (state, { payload }) => {
       state.loading = false;
       state.isOtpVerified = false;
+      state.success = false;
       state.error = true;
     },
 
@@ -180,12 +218,19 @@ const authSlice = createSlice({
       state.token = payload;
     },
     [getToken.rejected]: (state, { payload }) => {
+      localStorage.clear();
       state.loading = false;
       state.isOtpVerified = false;
+      state.isAuthenticated = false;
+      state.isLoggedIn = false;
       state.error = true;
     },
+
+    [logout.fulfilled]: (state) => {},
+    [logout.rejected]: (state) => {},
   },
 });
 
-export const { clearErrorAndSuccess, isOtpSent, setUser } = authSlice.actions;
+export const { signOut, clearErrorAndSuccess, isOtpSent, setUser } =
+  authSlice.actions;
 export default authSlice.reducer;

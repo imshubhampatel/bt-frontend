@@ -12,7 +12,7 @@ import { isAuthenticated } from "../../Helpers/auth.helper.js";
 
 const VerifyOtp = () => {
   const [pressedKey, setPressedKey] = useState("");
-  let nevigate = useNavigate();
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     token,
@@ -26,26 +26,19 @@ const VerifyOtp = () => {
   } = useSelector((state) => state.auth);
   console.log(loading);
 
-  useEffect(() => {
-    // dispatch(getAccessToken());
-  }, [isLoggedIn]);
-
   if (error) {
     dispatch(showError("Incorrect otp"));
   }
 
   if (success) {
     setTimeout(() => {
-      nevigate("/super-admin/dashboard");
+      navigate("/super-admin/dashboard");
     }, 1000);
   }
 
   useEffect(() => {
-    if (!isAuth) {
-      nevigate("/sign-in");
-    }
-    if (isAuthenticated()) {
-      nevigate("/super-admin/dashboard");
+    if (!token) {
+      navigate("/sign-in");
     }
   }, []);
 
@@ -60,7 +53,11 @@ const VerifyOtp = () => {
     otp6: "",
   });
 
-  const redirectHandler = () => {};
+  const redirectHandler = () => {
+    console.log("redirected");
+    if (isAuthenticated()) navigate("/super-admin/dashboard");
+    return;
+  };
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     let finalOtp = `${otp.otp1}${otp.otp2}${otp.otp3}${otp.otp4}${otp.otp5}${otp.otp6}`;

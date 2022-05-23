@@ -10,7 +10,6 @@ import {
 } from "../../Features/auth/authSlice";
 import Loader from "../Loader/Loader";
 import { isAuthenticated } from "../../Helpers/auth.helper.js";
-import { Error, ErrorRounded } from "@mui/icons-material";
 
 //? material ui
 
@@ -27,6 +26,14 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (success) {
+      dispatch(clearErrorAndSuccess());
+      navigate("/otp-verification");
+      return;
+    }
+  }, [success]);
 
   const [FormError, setFormError] = useState({
     email: false,
@@ -62,17 +69,12 @@ const SignIn = () => {
     setShowEye(true);
   }, [Values]);
 
-  const redirectHandler = () => {
-    if (success) {
-      dispatch(clearErrorAndSuccess());
-      navigate("/otp-verification");
-      return;
-    }
+  useEffect(() => {
     if (isAuthenticated()) {
       navigate("/super-admin/dashboard");
       return;
     }
-  };
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -88,7 +90,6 @@ const SignIn = () => {
         <Loader />
       ) : (
         <div className={`${styles.header} ${loading && styles.header_blur}  `}>
-          {redirectHandler()}
           <div className={`${styles.container}  `}>
             <div className={`${styles.signIn_styles} ${styles}`}>
               <div className={`${styles.logo} ${styles.image}`}>

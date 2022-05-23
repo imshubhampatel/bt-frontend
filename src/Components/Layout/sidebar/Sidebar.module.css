@@ -8,7 +8,7 @@
 
 .sidetext {
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-align: center;
@@ -17,7 +17,7 @@
 }
 .sidetext.date_text {
   color: #fff;
-  font-size: 1.34rem;
+  font-size: 13px;
   font-weight: 400;
 }
 .sidebar_wrapper {
@@ -108,4 +108,12 @@
 
 p#errorHandler {
   border: 1px solid black;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
+  border-radius: 50%;
+  margin: 10px auto;
 }

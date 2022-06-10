@@ -26,17 +26,22 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async function (error) {
-    console.log(error.response);
-    const oldRequest = error.config;
-    console.log("orignalrequest", oldRequest);
-    if (error.response.status === 401 && !oldRequest._retry) {
-      oldRequest._retry = true;
+    let rf_try = true;
+    let oldRequest = error.config;
+
+    let urlRefreshToken = "/super-admin/refresh-token";
+    if (oldRequest.url === urlRefreshToken) {
+      rf_try = false;
+      localStorage.clear();
+    }
+    if (error.response.status === 401 && !oldRequest._retry && rf_try) {
       const { token } = await refreshToken();
+      // console.log("accessToken", token);
+
       if (!token) {
         localStorage.clear();
         return;
       }
-      console.log("accessToken", token);
       axiosInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${token}`;

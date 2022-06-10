@@ -3,6 +3,8 @@ import axios from "../../Axios";
 import { Authenticate } from "../../Helpers/auth.helper";
 import { showError, showMessage } from "../alert/alertSlice";
 
+// "start": "FAST_REFRESH=false react-scripts start",
+
 //checking auth creds
 export const setUserDetails = createAsyncThunk(
   "super-admin/setUserDetails",
@@ -23,7 +25,8 @@ export const setUserDetails = createAsyncThunk(
       }, 1000);
       return data;
     } catch (error) {
-      console.log(error.response.data.data);
+      console.log("error in console", error);
+      console.log("error in console", error.response);
       thunkAPI.dispatch(showError(error.response.data.data.message));
       setTimeout(() => {
         thunkAPI.dispatch(clearErrorAndSuccess());
@@ -191,6 +194,7 @@ const authSlice = createSlice({
       state.success = true;
     },
     [setUserDetails.rejected]: (state, { payload }) => {
+      console.log(payload);
       state.loading = false;
       state.isAuthenticated = false;
       state.isLoggedIn = false;

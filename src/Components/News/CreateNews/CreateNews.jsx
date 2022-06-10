@@ -28,6 +28,7 @@ export default function CreateNews() {
       handleCancellation();
     }
     let result = await Axios.get(`http://localhost:5001/api/v1/news/all-news`);
+    alert(JSON.stringify(result));
     console.log(result);
   };
   const redirectHandler = () => {
